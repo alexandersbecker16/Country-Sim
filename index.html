@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Border Wars — Colony Sim IO</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand">
+        <h1>Border Wars</h1>
+        <p>HD world map with every country — draw outline borders, claim land, then fight with tech, navy, air &amp; nukes.</p>
+      </div>
+      <div class="phase-badge" id="phaseBadge">DRAW</div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <section class="panel">
+          <h2>Mode</h2>
+          <div class="btn-row">
+            <button id="btnBorder" class="btn primary active">Draw border</button>
+            <button id="btnClaim" class="btn">Claim inside</button>
+            <button id="btnFill" class="btn">Paint fill</button>
+            <button id="btnErase" class="btn">Erase</button>
+            <button id="btnPan" class="btn">Pan map</button>
+          </div>
+          <p class="hint">Default is outline only — trace a border, close the loop to auto-fill, or switch to Claim inside and click the hole.</p>
+        </section>
+
+        <section class="panel">
+          <h2>Colony</h2>
+          <label class="field">
+            Name
+            <input id="nationName" type="text" maxlength="24" placeholder="e.g. Franco-Britain" />
+          </label>
+          <label class="field">
+            Color
+            <input id="nationColor" type="color" value="#c45c26" />
+          </label>
+          <div id="colorSwatches" class="color-swatches" aria-label="District colors"></div>
+          <div class="btn-row">
+            <button id="btnNewNation" class="btn">New colony</button>
+            <button id="btnRandomColonies" class="btn accent">Random colonies</button>
+            <button id="btnRandomColor" class="btn ghost">Random color</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Brush</h2>
+          <label class="field">
+            Size <span id="brushLabel">12</span>
+            <input id="brushSize" type="range" min="2" max="40" value="12" />
+          </label>
+          <p class="hint">Default is a fat brush for fast country outlines. Drop the size if you want finer borders.</p>
+        </section>
+
+        <section class="panel">
+          <h2>Simulation</h2>
+          <div class="btn-row">
+            <button id="btnStart" class="btn accent">Start war</button>
+            <button id="btnPause" class="btn" disabled>Pause</button>
+            <button id="btnReset" class="btn ghost">Reset map</button>
+          </div>
+          <label class="field">
+            Speed <span id="speedLabel">1×</span>
+            <input id="simSpeed" type="range" min="1" max="8" value="1" />
+          </label>
+          <label class="check">
+            <input id="allowNukes" type="checkbox" checked />
+            Allow nuclear strikes
+          </label>
+        </section>
+
+        <section class="panel" id="nationListPanel">
+          <h2>Colonies</h2>
+          <div id="nationList" class="nation-list"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Selected</h2>
+          <div id="selectedInfo" class="selected-info">Draw a border outline, then inspect stats here.</div>
+        </section>
+      </aside>
+
+      <main class="stage">
+        <canvas id="map" width="1920" height="960"></canvas>
+        <div class="legend">
+          <span><i class="swatch land"></i> Land</span>
+          <span><i class="swatch water"></i> Ocean</span>
+          <span><i class="swatch border"></i> Country borders</span>
+          <span><i class="swatch nuke"></i> Nuclear strike</span>
+        </div>
+        <div id="tooltip" class="tooltip hidden"></div>
+      </main>
+
+      <aside class="feed-col">
+        <section class="panel feed-panel">
+          <h2>War feed</h2>
+          <div id="feed" class="feed"></div>
+        </section>
+        <section class="panel">
+          <h2>World tech climate</h2>
+          <p id="worldTech" class="world-tech">Hover fine subregions (Bay Area vs SoCal, etc.). Holding multiple tech hubs adds their power together — updates live in war.</p>
+        </section>
+      </aside>
+    </div>
+  </div>
+
+  <script src="js/world.js"></script>
+  <script src="js/subregions.js"></script>
+  <script src="js/geography.js"></script>
+  <script src="js/mapdata.js"></script>
+  <script src="js/sim.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
